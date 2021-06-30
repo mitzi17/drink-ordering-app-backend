@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   
-  resources :drinks
-  resources :orders
+  resources :orders do
+    resources :drinks
+  end
   
 end
