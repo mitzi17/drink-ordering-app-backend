@@ -1,23 +1,23 @@
 class DrinksController < ApplicationController
 
-    before_action :set_drink
+    before_action :set_order
 
     def index
-        @drinks = @order.drinks
+        @drinks = Drink.all
         render json: @drinks
     end
 
     def create
-        @drink = Drink.new(drink_params)
+        @drink = @order.drinks.new(drink_params)
         if @drink.save
-            render json: @drink
+            render json: @order
         else 
             render json: {error: "Error: Drink not created"}
         end
     end
 
     def show
-        @drink = Drink.all.find(params[:id])
+        @drink = Drink.find(params[:id])
         render json: @drink
     end
 
@@ -27,8 +27,8 @@ class DrinksController < ApplicationController
 
     private
 
-    def set_drink
-        @drink = Drink.all.find(params[:order_id])
+    def set_order
+        @order = Order.find(params[:order_id])
     end
 
     def drink_params
