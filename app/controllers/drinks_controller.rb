@@ -22,7 +22,10 @@ class DrinksController < ApplicationController
     end
 
     def destroy
-
+        @drink = Drink.find(params["id"])
+        @order = Order.find(@drink.order_id)
+        @drink.destroy
+        render json: @order
     end
 
     private
